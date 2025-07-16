@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Don’t Feed the Watchdogs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            punkPurple: '#7e1e9c',
+            acidYellow: '#fffb00',
+            bloodOrange: '#f2542d',
+            hawBlue: '#005ca9',
+            glitchBlue: '#00f7ff',
+            rebelPink: '#f5009c',
+            grime: '#1a1a1a',
+            bone: '#fefcfb'
+          },
+          fontFamily: {
+            // Display-Font bleibt 'ResistanceGeneral'
+            headline: ['ResistanceGeneral', 'sans-serif'],
+            // Fließtext: 'Nunito' ist eine gut lesbare, leicht abgerundete Schrift
+            body: ['Nunito', 'sans-serif']
+          },
+          fontSize: { // Benutzerdefinierte Schriftgrößen für Display-Font (jeweils 5pt kleiner)
+            'display-sm': ['51px', { lineHeight: '1' }], // Für h1 mobil (58px - ~6.67px)
+            'display-md': ['58px', { lineHeight: '1' }], // Für h1 desktop (65px - ~6.67px)
+            'display-lg': ['77px', { lineHeight: '1' }], // Für h2 intro 1 (84px - ~6.67px)
+            'display-xl': ['65px', { lineHeight: '1' }], // Für h2 intro 2, download, conclusion (72px - ~6.67px)
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts Link für Nunito (für Fließtext) -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* @font-face Regel für Resistance Font */
+    @font-face {
+        font-family: 'ResistanceGeneral'; /* So nennst du die Schriftart in deinem CSS und Tailwind */
+        src: url('Fonts/resistance_generale-webfont.ttf') format('truetype'); /* Pfad zur Font-Datei */
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap; /* Wichtig für die Ladezeit */
+    }
+
+    /* @font-face Regel für Arial Rounded MT Regular */
+    @font-face {
+        font-family: 'ArialRounded'; /* So nennst du die Schriftart in deinem CSS und Tailwind */
+        src: url('Fonts/Arial Rounded MT Regular.ttf') format('truetype'); /* Pfad zur Font-Datei */
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap; /* Wichtig für die Ladezeit */
+    }
+
+    body {
+      /* Nunito als Standard-Fließtext, jetzt auf 20px gesetzt (Tailwind text-xl) */
+      font-family: 'Nunito', sans-serif;
+      font-size: 20px; /* Fließtext auf 20px */
+      font-weight: 700; /* Fließtext standardmäßig fett */
+      background-image: url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
+      background-repeat: repeat;
+    }
+    .headline {
+      /* ResistanceGeneral für Überschriften bleibt */
+      font-family: 'ResistanceGeneral', sans-serif;
+    }
+    .btn {
+      /* Buttons und Antworten haben jetzt auch 20px (text-xl) */
+      @apply px-5 py-3 rounded-full text-xl font-bold inline-flex items-center gap-2 border border-black shadow-md hover:scale-105 active:scale-95 transition duration-200 ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-bone text-grime dark:bg-grime dark:text-bone">
+  <header class="flex justify-between items-center px-6 py-4 bg-punkPurple text-acidYellow sticky top-0 z-50 shadow-md">
+    <h1 class="text-display-sm md:text-display-md headline">🐕💢Don’t Feed the Watchdogs</h1>
+    <div class="flex gap-2">
+      <button id="lang-toggle" class="btn bg-acidYellow text-black hover:bg-yellow-300">🌍 EN/DE</button>
+      <button id="restart-btn" class="btn bg-acidYellow text-black hover:bg-yellow-300"><i data-lucide="flame"></i> Burn it</button>
+      <button id="darkmode-toggle" class="btn bg-acidYellow text-black hover:bg-yellow-300"><i data-lucide="moon"></i></button>
+    </div>
+  </header>
+
+  <main id="app-container" class="max-w-3xl mx-auto px-4 py-6">
+    <div id="intro-page-1" class="bg-grime text-bone p-8 rounded-lg shadow-xl border-4 border-acidYellow">
+      <h2 class="headline text-display-lg mb-4 text-acidYellow">Digital Surveillance First Aid</h2>
+      <p class="mb-6 text-xl">
+        Surveillance is everywhere — at protests, in your search history, in the cloud.
+        This playful tool offers bite-sized, foldable knowledge on how law enforcement and platforms track your digital life.
+        By answering three quick questions, you generate a mini zine that reflects key risks and offers simple first steps for digital self-defense.
+
+It’s made to print, share, and stay aware —
+because knowledge sharing keeps us all a bit safer.
+      </p>
+      <p class="text-bone text-xl not-italic">&#x1F319; “Under watchful eyes, we fold knowledge into zines.”</p>
+      <div class="flex flex-col items-center gap-4 mt-8">
+        <button id="start-zine-btn" class="btn px-8 py-4 bg-acidYellow text-black">Let's go</button>
+      </div>
+    </div>
+
+    <div id="intro-page-2" class="hidden bg-grime text-bone p-8 rounded-lg shadow-xl border-4 border-acidYellow">
+      <h2 class="headline text-display-xl mb-3 text-glitchBlue">🐱</h2>
+      <p class="mb-4 text-xl">
+        Answer the next questions to unlock your personalized mini zine.
+        Once you’re done, print, fold, and share your digital self-defense guide.
+        The folding instructions are posted in the outside world.
+      </p>
+      <p class="text-bone not-italic">&#x1F319;</p>
+      <div class="flex flex-col items-center gap-4 mt-8">
+        <button id="next-module-btn-intro" class="btn px-8 py-4 bg-acidYellow text-black">start</button>
+      </div>
+    </div>
+
+    <div id="module-container" class="hidden"></div>
+
+    <div id="download-page" class="hidden bg-grime text-bone p-8 rounded-lg shadow-xl border-4 border-acidYellow max-w-3xl mx-auto">
+      <h2 class="headline text-display-xl mb-4 text-acidYellow">Your zine's ready</h2>
+      <p class="mb-4 text-xl"> Print it. Copy it. Swap it. Post it on lamp posts.
+        Spread the word.</p>
+      <div class="flex flex-row justify-center gap-4">
+        <a id="zine-download-link" href="#" download class="btn bg-acidYellow text-black inline-flex items-center gap-2"><i></i> <span>Download</span></a>
+        <button id="print-zine-btn" class="btn bg-acidYellow text-black inline-flex items-center gap-2"><i></i> <span>Print</span></button>
+      </div>
+    </div>
+
+    <div class="flex justify-end mt-1 mb-2">
+      <button id="go-to-conclusion-btn" class="btn bg-hawBlue text-white hover:bg-blue-700 hidden inline-flex items-center gap-2"><i></i><span>Quellen & Widerstand</span></button>
+    </div>
+
+    <div id="conclusion-page" class="hidden bg-grime text-bone p-8 rounded-lg shadow-xl border-4 border-acidYellow">
+      <h2 class="headline text-display-xl text-acidYellow mb-4">Du bist nicht allein. Und nie offline.</h2>
+      <p class="mb-2 text-xl">Hier findest du digitale Verbündete im Kampf gegen Überwachung.</p>
+      <ul class="list-disc ml-6 mt-3 text-xl">
+        <li><a href="https://www.privacyguides.org/en/" target="_blank" class="underline text-glitchBlue">privacyguides.org</a></li>
+        <li><a href="https://activisthandbook.org/" target="_blank" class="underline text-glitchBlue">activisthandbook.org</a></li>
+        <li><a href="https://activistchecklist.org/" target="_blank" class="underline text-glitchBlue">activistchecklist.org</a></li>
+        <li><a href="https://www.cunts4change.com/zines.html" target="_blank" class="underline text-glitchBlue">cunts4change.com/zines.html</a></li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    const modules = {
+      en: [
+        {
+          question: `Damn, you wanted to hit up a protest on Friday night on the fly — of course, you didn’t leave your phone at home again. Which of these things is most likely to let the cops know you were there?`,
+          options: {
+            A: `Quick checked Maps to get to the spot — was kinda lost.`,
+            B: `My phone just chilled in my pocket the whole time, didn’t do much`,
+            C: `Sent a pic of my new kicks to friends during the demo — looked pretty cute`
+          }
+        },
+        {
+          question: `You wanna text your crush — they’re also into abolitionism and privacy. Perfect, you think, since you wanted to learn more about AI surveillance at Hamburg’s main station anyway. You suggest a research project (and a meet-up to get to know each other ;)). But… no reply — what happened?`,
+          options: {
+            A: `Your message was encrypted — but the metadata gives it away: you’re completely hooked. And online.`,
+            B: `Your phone got infected with spyware before you even typed “Hi.” Your crush is ghosting you — for security reasons.`,
+            C: `The message got automatically scanned, flagged, archived — and now you and your crush are part of a case study.`
+          }
+        }
+      ],
+      de: [
+        { question: 'Oh no, du wolltest spontan auf eine Protestaktion am Freitagabend – und hast dein Handy natürlich wieder nicht zuhause gelassen. Welche dieser Sachen könnte am ehesten dazu führen, dass Behörden mitbekommen, dass du dabei warst?',
+        options: {
+            A: 'Hab kurz Maps gecheckt, um zum Spot zu kommen – war halt lost.',
+            B: 'Mein Phone hat die ganze Zeit in meiner Tasche gechillt, hab nix gemacht.',
+            C: 'Hab nur ein Pic während der Demo von meinen neuen Sneakern an friends geschickt – sah halt cute aus' } },
+
+        { question: 'Du willst deinem Crush schreiben – they_die_der interessiert sich auch für Abolitionismus und Datenschutz. Perfekt, denkst du, denn du wolltest sowieso mehr über AI-Überwachung am Hamburger Hauptbahnhof lernen. Du schlägst ein Rechercheprojekt (und ein Kennenlerntreffen ;)) vor. Aber… keine Antwort  – was ist passiert?',
+        options: { A: 'Deine Nachricht war verschlüsselt – aber die Metadaten verraten: Du bist schockverliebt. Und online.',
+        B: 'Dein Handy wurde mit Spyware infiziert, bevor du überhaupt "Hi" tippen konntest. Dein Crush ghostet – aus Sicherheitsgründen.',
+        C: 'Die Nachricht wurde automatisch gescannt, markiert, archiviert – und du und dein Flirt sind jetzt Teil einer Fallanalyse.' } },
+
+        { question: 'Weil dein Crush sich immer noch nicht zum Überwachungsprojekt gemelht hat, recherchierst du allein im Netz. Am nächsten Tag bekommst du Werbung für:',
+        options: {
+            A: 'Es sind unsichtbare Schnüffler am Werk: Tracker, Cookies und Browser-Fingerprinting.',
+            B: 'Deine Daten landen in riesigen Cloud-Speichern und werden dort analysiert.',
+            C: 'Dein gesamtes Online-Verhalten wird gesammelt und zu einem detaillierten Profil zusammengefügt.' } }
+      ]
+    };
+
+    let currentModule = 0;
+    let currentLang = 'de';
+    let userAnswers = {};
+    const pages = {
+      intro1: document.getElementById('intro-page-1'),
+      intro2: document.getElementById('intro-page-2'),
+      module: document.getElementById('module-container'),
+      download: document.getElementById('download-page'),
+      conclusion: document.getElementById('conclusion-page')
+    };
+
+    function showPage(...ids) {
+      Object.entries(pages).forEach(([key, el]) => {
+        el.classList.toggle('hidden', !ids.includes(key));
+      });
+    }
+
+    function showModule(index) {
+      const langModules = modules[currentLang];
+      if (index >= langModules.length) return showDownload();
+      currentModule = index;
+      const mod = langModules[index];
+      const wrapper = document.createElement('div');
+      // Rahmenfarbe des Modul-Kastens auf acidYellow
+      wrapper.className = 'bg-grime text-bone rounded-lg p-8 shadow-xl border-4 border-acidYellow max-w-3xl mx-auto whitespace-pre-line';
+      wrapper.innerHTML = `
+        <div class="text-center mb-8">
+          <p class="text-xl font-bold">${index + 1}. ${mod.question}</p>
+        </div>
+        <div class="flex flex-col gap-6 items-center">
+          ${Object.entries(mod.options).map(([key, text]) => `<button class="btn w-full max-w-md text-xl bg-punkPurple text-white hover:bg-purple-700" data-option="${key}">${key}) ${text}</button>`).join('')}
+        </div>
+      `;
+      pages.module.innerHTML = '';
+      pages.module.appendChild(wrapper);
+      showPage('module');
+      document.querySelectorAll('[data-option]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const val = e.currentTarget.dataset.option;
+          userAnswers[`module${index + 1}`] = val;
+          showModule(index + 1);
+        });
+      });
+    }
+
+    function showDownload() {
+      document.getElementById('go-to-conclusion-btn').classList.remove('hidden');
+      const combo = Object.values(userAnswers).join('');
+      const file = `Zines/Dein_Zine_${combo}.pdf`; // <-- Hier wurde 'zines' zu 'Zines' geändert
+      const link = document.getElementById('zine-download-link');
+      link.href = file;
+      link.download = `Dein_Zine_${combo}.pdf`;
+      document.getElementById('print-zine-btn').onclick = () => {
+        const win = window.open(file, '_blank');
+        if (win) win.onload = () => win.print();
+      };
+      showPage('download');
+    }
+
+    document.getElementById('start-zine-btn').onclick = () => showPage('intro2');
+    document.getElementById('next-module-btn-intro').onclick = () => showModule(0);
+    document.getElementById('go-to-conclusion-btn').onclick = () => showPage('conclusion');
+    document.getElementById('restart-btn').onclick = () => {
+      if (confirm("Willst du wirklich neu starten?")) {
+        userAnswers = {};
+        currentModule = 0;
+        showPage('intro1');
+      }
+    };
+    document.getElementById('darkmode-toggle').onclick = () => {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      document.getElementById('darkmode-toggle').innerHTML = isDark
+        ? '<i data-lucide="sun"></i>'
+        : '<i data-lucide="moon"></i>';
+      lucide.createIcons();
+    };
+    document.getElementById('lang-toggle').onclick = () => {
+      currentLang = currentLang === 'de' ? 'en' : 'de';
+      userAnswers = {};
+      currentModule = 0;
+      showPage('intro1');
+    };
+
+    showPage('intro1');
+    lucide.createIcons();
+  </script>
+</body>
+</html>
